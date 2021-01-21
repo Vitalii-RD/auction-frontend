@@ -12,11 +12,13 @@ class AuctionRequest {
   itemName:string
   ownerId:number;
   initialBid:number;
+  done:boolean;
 
-  constructor(itemName:string, ownerId:number, initialBid:number) {
+  constructor(itemName:string, ownerId:number, initialBid:number, done:boolean) {
     this.itemName = itemName;
     this.ownerId = ownerId;
     this.initialBid = initialBid;
+    this.done = done;
   }
 }
 
@@ -39,7 +41,7 @@ export class AuctionService {
   }
 
   createAuction(auctionInfo:any, user_id:number): Observable<Auction> {
-    const data = new AuctionRequest(auctionInfo.title, user_id, auctionInfo.initialBid)
+    const data = new AuctionRequest(auctionInfo.title, user_id, auctionInfo.initialBid, false)
     return this.http.post<Auction>(this.auctionsUlr, data, this.httpOptions).pipe(
       map((data:Auction) => {
         data.history = [];
