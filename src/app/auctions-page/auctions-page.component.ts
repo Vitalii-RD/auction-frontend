@@ -16,7 +16,7 @@ export class AuctionsPageComponent implements OnInit {
   
   defaultForm = {
     title: '',
-    initialBid: ''
+    initialBid: 0
   }
   
   auctionForm =  this.formBuilder.group(this.defaultForm);
@@ -32,7 +32,7 @@ export class AuctionsPageComponent implements OnInit {
     this.getAuctions();
   }
 
-  getAuctions() {
+  getAuctions():void {
     this.auctionService.getAuctions()
     .subscribe(
       (data:Auction[]) => {
@@ -43,18 +43,28 @@ export class AuctionsPageComponent implements OnInit {
         this.auctions = [];
         this.error = "Oops, something went wrong. Can not load the tasks.";
       } 
-      );
+    );
   }
 
-  closeModal() {
+  closeModal():void {
     this.isModal = false;
   }
 
-  openModal() {
+  openModal():void {
     this.isModal = true;
   }
 
-  onSubmit() {
+  createAuction(formData:any):void {
+    this.auctionService.createAuction(formData, 2)
+    .subscribe(
+      (data:Auction) => this.auctions.push(data),
+      (e:HttpErrorResponse) => {
+        console.log(e);
+      });
+  }
+
+  onSubmit():void {
+    this.createAuction(this.auctionForm.value);
     this.closeModal();
     this.auctionForm.reset(this.defaultForm);
   }

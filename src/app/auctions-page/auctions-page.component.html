@@ -48,7 +48,7 @@
 
         <form class="form__info" [formGroup]="auctionForm" (ngSubmit)="onSubmit()">
             <input type="text" name="title"  formControlName="title" placeholder="Item name" class="form__info-title">
-            <input type="number" class="form__info-initial-bid" placeholder="Initial bid">
+            <input type="number" formControlName="initialBid" placeholder="Initial bid" class="form__info-initial-bid">
             <button class="form__send" type="submit">add</button>
         </form>
     </div>

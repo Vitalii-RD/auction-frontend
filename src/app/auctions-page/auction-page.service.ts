@@ -8,10 +8,26 @@ import { catchError, map, retry, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import Auction from 'src/types/Auction';
 
+class AuctionRequest {
+  itemName:string
+  ownerId:number;
+  initialBid:number;
+
+  constructor(itemName:string, ownerId:number, initialBid:number) {
+    this.itemName = itemName;
+    this.ownerId = ownerId;
+    this.initialBid = initialBid;
+  }
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuctionService {
   
   private auctionsUlr = environment.url + '/auctions';
+  
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   constructor(private http: HttpClient) {}
 
@@ -20,5 +36,15 @@ export class AuctionService {
     .pipe(
       retry(1)
     )
+  }
+
+  createAuction(auctionInfo:any, user_id:number): Observable<Auction> {
+    const data = new AuctionRequest(auctionInfo.title, user_id, auctionInfo.initialBid)
+    return this.http.post<Auction>(this.auctionsUlr, data, this.httpOptions).pipe(
+      map((data:Auction) => {
+        data.history = [];
+        return data;
+      })
+    );
   }
 }
