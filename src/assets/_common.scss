@@ -1,0 +1,27 @@
+$black: #0B0C10;
+$dark:#1F2833;
+$silver: #C5C6C7;
+$blue: #006CFF;
+$dark-blue: #1f56a1;
+$grey: #EBEFF5;
+$white: #FFFFFF;
+$red: #F45E6D;
+
+%btn {
+  background-color: $blue;
+  border-radius: 5px;
+  color: $white;
+  border: none;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $dark-blue;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    background-color: $blue;
+  }
+}
