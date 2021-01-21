@@ -1,0 +1,92 @@
+$black: #0B0C10;
+$dark:#1F2833;
+$silver: #C5C6C7;
+$blue: #006CFF;
+$dark-blue: #1f56a1;
+$grey: #EBEFF5;
+
+:host {
+  width: 90%;
+  margin: 0 auto;
+  display: block;  
+}
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card {
+  box-sizing: border-box;
+  flex-basis: 40%;
+  background-color: $grey;
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &-header {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+
+    .owner,
+    .status {
+      text-align: right;
+      font-size: 0.8em;
+      margin-bottom: 5px;
+    }
+
+    p {
+      display: flex;
+      align-items: center;
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &-bids {
+    margin: 20px 0;
+  }
+  
+  &-functions {
+    display: flex;
+    justify-content: center;
+
+    button {
+      height: 40px;
+      width: 40px;
+      border: 1px solid $blue;
+      border-radius: 5px;
+      background-color: $blue;
+      color: $grey;
+      cursor: pointer;
+      margin: 0 10px;
+      transition: 0.3s;
+      
+      &:hover {
+        background-color: $dark-blue;  
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &:active {
+        background-color: rgba($color: $dark-blue, $alpha: 0.5);
+      }
+    }
+  }
+}
+
+
+.bid,
+.complete {
+  
+}
