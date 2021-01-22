@@ -5,7 +5,7 @@
   flex-basis: 40%;
   border: 2px solid $grey;
   border-radius: 10px;
-  min-width: 300px;
+  min-width: 400px;
   margin: 10px 0;
   padding: 15px;
   display: flex;
@@ -76,7 +76,8 @@
     color: $dark;
 
     .card-functions {
-      button {
+      .complete,
+      .bid {
         background-color: $silver;
         color: $white;
         border: $silver;
