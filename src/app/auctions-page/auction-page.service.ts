@@ -8,6 +8,16 @@ import { catchError, map, retry, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import Auction from 'src/types/Auction';
 
+class BidRequest {
+  userId: number;
+  bid: number;
+
+  constructor(userId: number, bid: number) {
+    this.userId = userId;
+    this.bid = bid;
+  }
+}
+
 class AuctionRequest {
   itemName:string
   ownerId:number;
@@ -48,5 +58,11 @@ export class AuctionService {
         return data;
       })
     );
+  }
+
+  makeBid(auction_id:number, user_id:number, bidInfo:any): Observable<Auction> {
+    const data = new BidRequest(user_id, bidInfo.bid);
+    const url = `${this.auctionsUlr}/${auction_id}/bids` 
+    return this.http.post<Auction>(url, data, this.httpOptions);
   }
 }
