@@ -64,7 +64,7 @@ export class AuctionsPageComponent implements OnInit {
   }
 
   makeBid(data:any):void {
-    this.auctionService.makeBid(this.selectedAuction.id, 2, data)
+    this.auctionService.makeBid(this.selectedAuction.id, 3, data)
     .subscribe(
       (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
       (e:HttpErrorResponse) => {
@@ -83,7 +83,7 @@ export class AuctionsPageComponent implements OnInit {
       }
     )
   }
-  
+
   onCloseAuction(auction:Auction):void {
     this.selectedAuction = auction;
     this.closeAuction();
@@ -109,8 +109,16 @@ export class AuctionsPageComponent implements OnInit {
   }
 
   getMinBidValue():number {
-    return this.selectedAuction.history 
-      ? Math.ceil(this.selectedAuction.history[this.selectedAuction.history.length-1].bid * 1.05) 
+    const INCREASE_RATE = 1.05;
+
+    let res = this.selectedAuction.history.length
+      ? Math.round(this.selectedAuction.history[this.selectedAuction.history.length-1].bid * INCREASE_RATE) 
       : 0;
+
+    let len = res.toString().length;
+    if (1 < len && len <= 3 ) res = Math.ceil(res / 10) * 10;
+    else if (len > 3) res = Math.ceil(res / 100) * 100;
+
+    return res;
   }
 }
