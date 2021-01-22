@@ -10,6 +10,7 @@ export class AuctionCardComponent implements OnInit {
   @Input() auction!:Auction;
   @Output() makeBidClick = new EventEmitter<Auction>();
   @Output() closeAuction = new EventEmitter<Auction>();
+  @Output() showInfo = new EventEmitter<Auction>()
   
   constructor() { }
 

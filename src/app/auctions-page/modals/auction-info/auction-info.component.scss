@@ -1,0 +1,26 @@
+@import '../../../../assets/common';
+
+.bids {
+  margin: 10px 0;
+}
+
+.history {
+  margin: 10px 0;
+
+  &__title {
+    text-align: center;
+    margin: 10px 0;
+  }
+}
+
+.history-record {
+  margin: 10px 0;
+
+  &__user {
+    color: $blue;
+  }
+
+  &__bid {
+    color: $blue;
+  }
+}

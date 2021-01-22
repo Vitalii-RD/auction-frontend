@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuctionCardComponent } from './auctions-page/auction-card/auction-card.component';
 import { CreateAuctionComponent } from './auctions-page/modals/create-auction/create-auction.component';
 import { MakeBidComponent } from './auctions-page/modals/make-bid/make-bid.component';
+import { AuctionInfoComponent } from './auctions-page/modals/auction-info/auction-info.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MakeBidComponent } from './auctions-page/modals/make-bid/make-bid.compo
     AuctionsPageComponent,
     AuctionCardComponent,
     CreateAuctionComponent,
-    MakeBidComponent
+    MakeBidComponent,
+    AuctionInfoComponent
   ],
   imports: [
     BrowserModule,

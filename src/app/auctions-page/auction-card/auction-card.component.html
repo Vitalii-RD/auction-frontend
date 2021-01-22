@@ -24,6 +24,11 @@
       <i class="fa fa-gavel"></i>
     </button>
 
+    
+    <button class="info" (click)="showInfo.emit(this.auction)" [disabled]="auction.done">
+      <i class="fa fa-info"></i>
+    </button>
+
     <button class="complete" (click)="closeAuction.emit(this.auction)" [disabled]="auction.done">
       <i class="fa fa-check"></i>
     </button>

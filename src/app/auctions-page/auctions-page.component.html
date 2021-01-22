@@ -7,7 +7,8 @@
   <div class="card-container">
     <app-auction-card *ngFor="let auction of auctions" [auction]="auction" 
     (closeAuction)="onCloseAuction($event)"
-    (makeBidClick)="onMakeBidClick($event)">
+    (makeBidClick)="onMakeBidClick($event)"
+    (showInfo)="onShowInfo($event)">
     </app-auction-card>
   </div>
 
@@ -19,6 +20,9 @@
     <app-make-bid *ngSwitchCase="'makeBid'" (closeModalEvent)="closeModal()" 
     (submitMakeBidEvent)="onSubmitMakeBid($event)" [min]="getMinBidValue()">
     </app-make-bid>
+
+    <app-auction-info *ngSwitchCase="'showInfo'" [auction]="selectedAuction" (closeModalEvent)="closeModal()">
+    </app-auction-info>
   </section>
 
 </section>

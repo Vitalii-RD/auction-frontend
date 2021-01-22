@@ -53,6 +53,11 @@ export class AuctionsPageComponent implements OnInit {
     this.openModal('makeBid');
   }
 
+  onShowInfo(auction:Auction) {
+    this.selectedAuction = auction;
+    this.openModal('showInfo');
+  }
+
   onSubmitCreateAuction(data:any):void {
     this.createAuction(data);
     this.closeModal();
@@ -62,6 +67,7 @@ export class AuctionsPageComponent implements OnInit {
     this.makeBid(data);
     this.closeModal();
   }
+
 
   makeBid(data:any):void {
     this.auctionService.makeBid(this.selectedAuction.id, 3, data)
@@ -100,6 +106,7 @@ export class AuctionsPageComponent implements OnInit {
   }
 
   openModal(type:string):void {
+    console.log(type);
     this.modalType = type;
     this.isModal = true;
   }

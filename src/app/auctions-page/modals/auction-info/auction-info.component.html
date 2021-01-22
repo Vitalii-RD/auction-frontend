@@ -1,0 +1,32 @@
+<div class="modal-content">
+  <div class="modal-content__header">
+      <span class="modal-content__title">Auction Info</span>
+      <i class="fa fa-times fa-lg modal-content__close" (click)="closeModalEvent.emit()"></i>
+  </div>
+  <div>
+    <p>Title: {{auction.item.title}}</p>
+    <p class="status">Status: {{auction.done ? "closed" : "open"}}</p>
+    
+    <div class="bids">
+      <p class="owner">Owner: {{auction.item.owner.name}}</p>
+      <p>Initial bid: <span>{{auction.initialBid | currency}}</span></p>
+      
+      <p *ngIf="auction.history.length > 0; else noHistory">
+        {{auction.done ? "Winner bid:" : "Current bid:"}} 
+        <span>{{auction.history[auction.history.length-1].bid | currency}}</span> 
+      </p>
+      <p>From: <span>{{auction.history[auction.history.length-1].user.name}}</span></p>
+      
+      <ng-template #noHistory>You can be first</ng-template>
+    </div>
+  
+  <div class="history">
+    <p class="history__title">History</p>
+    <p class="history-record" *ngFor="let bid of auction.history">
+      <strong class="history-record__user">{{bid.user.name}}</strong> 
+      make a bid with 
+      <em class="history-record__bid">{{bid.bid | currency}}</em> 
+      on <span>{{bid.date |date:'short'}}</span>
+    </p>
+  </div>
+</div>
