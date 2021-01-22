@@ -10,7 +10,8 @@ export class MakeBidComponent implements OnInit {
   @Output() submitMakeBidEvent = new EventEmitter();
   
   defaultBidForm = {
-    bid: 0
+    bid: '',
+    maxBid: ''
   }
 
   bidForm = this.formBuilder.group(this.defaultBidForm);
@@ -18,6 +19,13 @@ export class MakeBidComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {}
+  
+  onMaxBidChange() {
+    let max = this.bidForm.controls['maxBid'];
+    if (this.bidForm.controls['bid'].value > max?.value) {
+      max.setValue(this.bidForm.controls['bid'].value);
+    }
+  }
 
   onSubmitMakeBid() {
     this.submitMakeBidEvent.emit(this.bidForm.value);

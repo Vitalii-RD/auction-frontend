@@ -64,7 +64,7 @@ export class AuctionsPageComponent implements OnInit {
   }
 
   makeBid(data:any) {
-    this.auctionService.makeBid(this.selectedAuction.id, 1, data)
+    this.auctionService.makeBid(this.selectedAuction.id, 2, data)
     .subscribe(
       (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
       (e:HttpErrorResponse) => {
