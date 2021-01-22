@@ -11,16 +11,18 @@
       <p class="owner">Owner: {{auction.item.owner.name}}</p>
       <p>Initial bid: <span>{{auction.initialBid | currency}}</span></p>
       
-      <p *ngIf="auction.history.length > 0; else noHistory">
-        {{auction.done ? "Winner bid:" : "Current bid:"}} 
-        <span>{{auction.history[auction.history.length-1].bid | currency}}</span> 
-      </p>
-      <p>From: <span>{{auction.history[auction.history.length-1].user.name}}</span></p>
+      <div *ngIf="auction.history.length > 0; else noHistory">
+        <p>
+          {{auction.done ? "Winner bid:" : "Current bid:"}} 
+          <span>{{auction.history[auction.history.length-1].bid | currency}}</span> 
+        </p>
+        <p>From: <span>{{auction.history[auction.history.length-1].user.name}}</span></p>
+      </div>
       
       <ng-template #noHistory>You can be first</ng-template>
     </div>
   
-  <div class="history">
+  <div class="history" *ngIf="auction.history.length > 0">
     <p class="history__title">History</p>
     <p class="history-record" *ngFor="let bid of auction.history">
       <strong class="history-record__user">{{bid.user.name}}</strong> 

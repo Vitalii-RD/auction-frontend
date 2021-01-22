@@ -70,7 +70,7 @@ export class AuctionsPageComponent implements OnInit {
 
 
   makeBid(data:any):void {
-    this.auctionService.makeBid(this.selectedAuction.id, 3, data)
+    this.auctionService.makeBid(this.selectedAuction.id, 4, data)
     .subscribe(
       (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
       (e:HttpErrorResponse) => {
