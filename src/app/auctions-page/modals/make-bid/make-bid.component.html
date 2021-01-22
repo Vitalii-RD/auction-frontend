@@ -1,0 +1,12 @@
+<div class="modal-content">
+  <div class="modal-content__header">
+    <span class="modal-content__title">Make a new bid</span>
+    <i class="fa fa-times fa-lg modal-content__close" (click)="closeModalEvent.emit()"></i>
+  </div>
+
+  <form class="form__info" [formGroup]="bidForm" (ngSubmit)="onSubmitMakeBid()">
+    <input type="number" formControlName="bid" placeholder="Bid" class="form__info-bid">
+    <button class="form__send" type="submit">add</button>
+  </form>
+
+</div>

@@ -12,20 +12,13 @@ import { AuctionService } from './auction-page.service';
 export class AuctionsPageComponent implements OnInit {
   auctions: Auction[];
   isModal: boolean = false;
-  error: String = '';
+  error: string = '';
+  modalType!:string;
+  selectedAuction!:Auction;
   
-  defaultForm = {
-    title: '',
-    initialBid: 0
-  }
-  
-  auctionForm =  this.formBuilder.group(this.defaultForm);
-
-  constructor(
-    private auctionService: AuctionService,
-    private formBuilder: FormBuilder
-    ) {
-    this.auctions = []
+  constructor(private auctionService: AuctionService) {
+    this.auctions = [];
+    this.modalType = 'makeBid';
   }
 
   ngOnInit(): void {
@@ -46,14 +39,6 @@ export class AuctionsPageComponent implements OnInit {
     );
   }
 
-  closeModal():void {
-    this.isModal = false;
-  }
-
-  openModal():void {
-    this.isModal = true;
-  }
-
   createAuction(formData:any):void {
     this.auctionService.createAuction(formData, 2)
     .subscribe(
@@ -63,14 +48,37 @@ export class AuctionsPageComponent implements OnInit {
       });
   }
 
-  onSubmit():void {
-    this.createAuction(this.auctionForm.value);
+  onMakeBidClick(auction:Auction) {
+    this.selectedAuction = auction;
+    this.openModal('makeBid');
+  }
+
+  onSubmitCreateAuction(data:any):void {
+    this.createAuction(data);
     this.closeModal();
-    this.auctionForm.reset(this.defaultForm);
   }
 
-  makeBid(auction:Auction) {
-
+  onSubmitMakeBid(data:any) {
+    this.makeBid(data);
+    this.closeModal();
   }
 
+  makeBid(data:any) {
+    this.auctionService.makeBid(this.selectedAuction.id, 1, data)
+    .subscribe(
+      (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
+      (e:HttpErrorResponse) => {
+        console.log(e);
+      }
+    );
+  }
+
+  openModal(type:string):void {
+    this.modalType = type;
+    this.isModal = true;
+  }
+
+  closeModal():void {
+    this.isModal = false;
+  }
 }

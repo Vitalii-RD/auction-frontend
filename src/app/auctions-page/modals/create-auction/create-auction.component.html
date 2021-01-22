@@ -1,0 +1,12 @@
+<div class="modal-content">
+  <div class="modal-content__header">
+      <span class="modal-content__title">Add new auction</span>
+      <i class="fa fa-times fa-lg modal-content__close" (click)="closeModalEvent.emit()"></i>
+  </div>
+
+  <form class="form__info" [formGroup]="auctionForm" (ngSubmit)="onSubmitCreateAuction()">
+      <input type="text" name="title"  formControlName="title" placeholder="Item name" class="form__info-title">
+      <input type="number" formControlName="initialBid" placeholder="Initial bid" class="form__info-bid">
+      <button class="form__send" type="submit">add</button>
+  </form>
+</div>

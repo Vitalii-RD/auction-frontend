@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import './assets/common';
+
 * {
     margin: 0;
     padding: 0;
@@ -8,3 +10,84 @@ body {
     font-size: 16px;
     font-family: 'Roboto', sans-serif;
 }
+
+.modal-content {
+    max-width: 500px;
+    width: 80%;
+    position: relative;
+    background-color: $white;
+    margin: 0 auto;
+    padding: 10px;
+    border: 2px solid $blue;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+  
+    &__header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px 0;
+      
+      &::before {
+        content: 'close';
+        margin-right: auto;
+        visibility: hidden;
+      }
+    }
+  
+    &__title {
+      font-size: 1.1em;
+    }
+  
+    &__close {
+      cursor: pointer;
+      margin-left: auto;
+      color: $blue;
+      transition: 0.3s;
+  
+      &:hover {
+        color: $dark-blue;
+      }
+    }
+  }
+
+  .form {
+    &__info-title,
+    &__info-bid {
+      padding: 5px  10px;
+      border-radius: 5px;
+      margin: 0 0 10px 0;
+      border: 1px solid silver;
+  
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 1px $blue;
+      }
+    }
+    
+    &__title {
+      font-size: 1.1em;
+    }
+  
+    &__info {
+      display: flex;
+      flex-direction: column;
+      padding: 15px 0;
+    }
+    
+    &__info-title {
+      &_danger {
+        border: 1px solid $red;
+      }
+    }
+  
+    &__send {
+      @extend %btn;
+      padding: 10px;
+      width: 80px;
+      display: block;
+      margin: 0 auto;
+    }
+  }

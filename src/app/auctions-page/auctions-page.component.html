@@ -1,29 +1,25 @@
 <section *ngIf="!error; else elseBlock">
 
-  <button class="add-btn" (click)="openModal()">
+  <button class="add-btn" (click)="openModal('createAuction')">
     <i class="fa fa-plus fa-lg"></i>
   </button>
   
   <div class="card-container">
     <app-auction-card *ngFor="let auction of auctions" 
-    [auction]="auction" (makeBidClick)="makeBid($event)">
+    [auction]="auction" (makeBidClick)="onMakeBidClick($event)">
     </app-auction-card>
   </div>
 
-  <section *ngIf="isModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-content__header">
-            <span class="modal-content__title">Add new auction</span>
-            <i class="fa fa-times fa-lg modal-content__close" (click)="closeModal()"></i>
-        </div>
-
-        <form class="form__info" [formGroup]="auctionForm" (ngSubmit)="onSubmit()">
-            <input type="text" name="title"  formControlName="title" placeholder="Item name" class="form__info-title">
-            <input type="number" formControlName="initialBid" placeholder="Initial bid" class="form__info-initial-bid">
-            <button class="form__send" type="submit">add</button>
-        </form>
-    </div>
+  <section *ngIf="isModal" class="modal" [ngSwitch]="modalType">
+    <app-create-auction *ngSwitchCase="'createAuction'" (closeModalEvent)="closeModal()" 
+    (submitCreateAuctionEvent)="onSubmitCreateAuction($event)">
+    </app-create-auction>
+    
+    <app-make-bid *ngSwitchCase="'makeBid'" (closeModalEvent)="closeModal()" 
+    (submitMakeBidEvent)="onSubmitMakeBid($event)">
+    </app-make-bid>
   </section>
+
 </section>
 
 <ng-template #elseBlock>
