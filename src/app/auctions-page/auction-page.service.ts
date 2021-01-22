@@ -71,4 +71,9 @@ export class AuctionService {
   getAuctionById(auction_id:number): Observable<Auction> {
     return this.http.get<Auction>(`${this.auctionsUlr}/${auction_id}`);
   }
+
+  closeAuction(auction_id:number, user_id:number): Observable<Auction> {
+    const data = new AuctionRequest('', user_id, 0, true);
+    return this.http.put<Auction>(`${this.auctionsUlr}/${auction_id}`, data);
+  }
 }

@@ -69,4 +69,17 @@
       }
     }
   }
+
+  &_done {
+    background-color: $grey;
+    color: $dark;
+
+    .card-functions {
+      button {
+        background-color: $silver;
+        color: $white;
+        border: $silver;
+      }
+    }
+  }
 }

@@ -5,8 +5,9 @@
   </button>
   
   <div class="card-container">
-    <app-auction-card *ngFor="let auction of auctions" 
-    [auction]="auction" (makeBidClick)="onMakeBidClick($event)">
+    <app-auction-card *ngFor="let auction of auctions" [auction]="auction" 
+    (closeAuction)="onCloseAuction($event)"
+    (makeBidClick)="onMakeBidClick($event)">
     </app-auction-card>
   </div>
 

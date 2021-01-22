@@ -9,13 +9,10 @@ import Auction from 'src/types/Auction';
 export class AuctionCardComponent implements OnInit {
   @Input() auction!:Auction;
   @Output() makeBidClick = new EventEmitter<Auction>();
-
+  @Output() closeAuction = new EventEmitter<Auction>();
+  
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  makeBid() {
-    this.makeBidClick.emit(this.auction);
   }
 }

@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [class.card_done]="auction.done">
   
   <div class="card-header">
     <p>{{auction.item.title}}</p>
@@ -10,8 +10,9 @@
 
   <div class="card-bids">
     <p>Initial bid: <span>{{auction.initialBid | currency}}</span></p>
+    
     <p *ngIf="auction.history.length > 0; else noHistory">
-      Current bid: 
+      {{auction.done ? "Winner bid:" : "Current bid:"}} 
       <span>{{auction.history[auction.history.length-1].bid | currency}}</span> from <span>{{auction.history[auction.history.length-1].user.name}}</span>
     </p>
     <ng-template #noHistory>You can be first</ng-template>
@@ -19,11 +20,11 @@
 
   <div class="card-functions">
     
-    <button class="bid" (click)="makeBid()">
+    <button class="bid" (click)="makeBidClick.emit(this.auction)" [disabled]="auction.done">
       <i class="fa fa-gavel"></i>
     </button>
 
-    <button class="complete">
+    <button class="complete" (click)="closeAuction.emit(this.auction)" [disabled]="auction.done">
       <i class="fa fa-check"></i>
     </button>
     

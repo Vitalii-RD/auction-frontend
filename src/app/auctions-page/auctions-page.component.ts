@@ -48,7 +48,7 @@ export class AuctionsPageComponent implements OnInit {
       });
   }
 
-  onMakeBidClick(auction:Auction) {
+  onMakeBidClick(auction:Auction):void {
     this.selectedAuction = auction;
     this.openModal('makeBid');
   }
@@ -58,12 +58,12 @@ export class AuctionsPageComponent implements OnInit {
     this.closeModal();
   }
 
-  onSubmitMakeBid(data:any) {
+  onSubmitMakeBid(data:any):void {
     this.makeBid(data);
     this.closeModal();
   }
 
-  makeBid(data:any) {
+  makeBid(data:any):void {
     this.auctionService.makeBid(this.selectedAuction.id, 2, data)
     .subscribe(
       (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
@@ -74,7 +74,7 @@ export class AuctionsPageComponent implements OnInit {
     );
   }
 
-  getAuctionById(id:number) {
+  getAuctionById(id:number):void {
     this.auctionService.getAuctionById(id)
     .subscribe(
       (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
@@ -82,6 +82,21 @@ export class AuctionsPageComponent implements OnInit {
         console.log(e);
       }
     )
+  }
+  
+  onCloseAuction(auction:Auction):void {
+    this.selectedAuction = auction;
+    this.closeAuction();
+  }
+
+  closeAuction() {
+    this.auctionService.closeAuction(this.selectedAuction.id, 1)
+    .subscribe(
+      (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
+      (e:HttpErrorResponse) => {
+        console.log(e);
+      }
+    ) 
   }
 
   openModal(type:string):void {
