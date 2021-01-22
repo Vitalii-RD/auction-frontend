@@ -5,38 +5,9 @@
   </button>
   
   <div class="card-container">
-    
-    <div class="card" *ngFor="let auction of auctions">
-  
-      <div class="card-header">
-        <p>{{auction.item.title}}</p>
-        <div class="card-header__info">
-          <span class="status">{{auction.done ? "close" : "open"}}</span>
-          <span class="owner">{{auction.item.owner.name}}</span>
-        </div>
-      </div>
-  
-      <div class="card-bids">
-        <p>Initial bid: <span>{{auction.initialBid | currency}}</span></p>
-        <p *ngIf="auction.history.length > 0; else noHistory">
-          Current bid: 
-          <span>{{auction.history[auction.history.length-1].bid | currency}}</span> from <span>{{auction.history[auction.history.length-1].user.name}}</span>
-        </p>
-        <ng-template #noHistory>You can be first</ng-template>
-      </div>
-  
-      <div class="card-functions">
-        
-        <button class="bid">
-          <i class="fa fa-gavel"></i>
-        </button>
-  
-        <button class="complete">
-          <i class="fa fa-check"></i>
-        </button>
-        
-      </div>
-    </div>
+    <app-auction-card *ngFor="let auction of auctions" 
+    [auction]="auction" (makeBidClick)="makeBid($event)">
+    </app-auction-card>
   </div>
 
   <section *ngIf="isModal" class="modal">

@@ -69,4 +69,8 @@ export class AuctionsPageComponent implements OnInit {
     this.auctionForm.reset(this.defaultForm);
   }
 
+  makeBid(auction:Auction) {
+
+  }
+
 }
