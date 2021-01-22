@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 @Component({
   selector: 'app-make-bid',
@@ -6,6 +6,7 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./make-bid.component.scss']
 })
 export class MakeBidComponent implements OnInit {
+  @Input() min!: number
   @Output() closeModalEvent = new EventEmitter()
   @Output() submitMakeBidEvent = new EventEmitter();
   
@@ -22,8 +23,10 @@ export class MakeBidComponent implements OnInit {
   
   onMaxBidChange() {
     let max = this.bidForm.controls['maxBid'];
-    if (this.bidForm.controls['bid'].value > max?.value) {
-      max.setValue(this.bidForm.controls['bid'].value);
+    let bid = this.bidForm.controls['bid']; 
+    if (bid.value < this.min) bid.setValue(this.min);
+    if (bid.value > max?.value) {
+      max.setValue(bid.value);
     }
   }
 

@@ -69,8 +69,19 @@ export class AuctionsPageComponent implements OnInit {
       (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
       (e:HttpErrorResponse) => {
         console.log(e);
+        this.getAuctionById(this.selectedAuction.id);
       }
     );
+  }
+
+  getAuctionById(id:number) {
+    this.auctionService.getAuctionById(id)
+    .subscribe(
+      (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
+      (e:HttpErrorResponse) => {
+        console.log(e);
+      }
+    )
   }
 
   openModal(type:string):void {
@@ -80,5 +91,11 @@ export class AuctionsPageComponent implements OnInit {
 
   closeModal():void {
     this.isModal = false;
+  }
+
+  getMinBidValue():number {
+    return this.selectedAuction.history 
+      ? Math.ceil(this.selectedAuction.history[this.selectedAuction.history.length-1].bid * 1.05) 
+      : 0;
   }
 }

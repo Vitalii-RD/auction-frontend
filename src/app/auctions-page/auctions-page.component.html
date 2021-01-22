@@ -16,7 +16,7 @@
     </app-create-auction>
     
     <app-make-bid *ngSwitchCase="'makeBid'" (closeModalEvent)="closeModal()" 
-    (submitMakeBidEvent)="onSubmitMakeBid($event)">
+    (submitMakeBidEvent)="onSubmitMakeBid($event)" [min]="getMinBidValue()">
     </app-make-bid>
   </section>
 

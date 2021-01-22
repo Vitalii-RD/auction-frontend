@@ -67,4 +67,8 @@ export class AuctionService {
     const url = `${this.auctionsUlr}/${auction_id}/bids` 
     return this.http.post<Auction>(url, data, this.httpOptions);
   }
+
+  getAuctionById(auction_id:number): Observable<Auction> {
+    return this.http.get<Auction>(`${this.auctionsUlr}/${auction_id}`);
+  }
 }

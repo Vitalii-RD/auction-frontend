@@ -5,8 +5,8 @@
   </div>
 
   <form class="form__info" [formGroup]="bidForm" (ngSubmit)="onSubmitMakeBid()">
-    <input type="number" formControlName="bid" placeholder="Bid" class="form__info-bid" (input)="onMaxBidChange()">
-    <input type="number" formControlName="maxBid" placeholder="Max bid" min="0" class="form__info-bid" (change)="onMaxBidChange()">
+    <input type="number" formControlName="bid" placeholder="Bid" class="form__info-bid" (change)="onMaxBidChange()">
+    <input type="number" formControlName="maxBid" placeholder="Max bid" class="form__info-bid" (change)="onMaxBidChange()">
     <button class="form__send" type="submit">add</button>
   </form>
 
