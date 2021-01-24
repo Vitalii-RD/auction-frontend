@@ -10,6 +10,8 @@ import { AuctionCardComponent } from './auctions-page/auction-card/auction-card.
 import { CreateAuctionComponent } from './auctions-page/modals/create-auction/create-auction.component';
 import { MakeBidComponent } from './auctions-page/modals/make-bid/make-bid.component';
 import { AuctionInfoComponent } from './auctions-page/modals/auction-info/auction-info.component';
+import { AuthenticationPageComponent } from './authentication-page/authentication-page.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { AuctionInfoComponent } from './auctions-page/modals/auction-info/auctio
     AuctionCardComponent,
     CreateAuctionComponent,
     MakeBidComponent,
-    AuctionInfoComponent
+    AuctionInfoComponent,
+    AuthenticationPageComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,7 @@ import { AuctionInfoComponent } from './auctions-page/modals/auction-info/auctio
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
