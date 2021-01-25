@@ -71,6 +71,6 @@ export class AuctionService {
 
   closeAuction(auction_id:number): Observable<Auction> {
     const data = new AuctionRequest('', 0, true);
-    return this.http.put<Auction>(`${this.auctionsUlr}/${auction_id}`, data);
+    return this.http.put<Auction>(`${this.auctionsUlr}/${auction_id}`, data, this.httpOptions);
   }
 }
