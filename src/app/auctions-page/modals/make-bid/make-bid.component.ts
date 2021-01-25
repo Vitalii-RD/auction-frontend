@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-make-bid',
   templateUrl: './make-bid.component.html',
@@ -11,23 +12,21 @@ export class MakeBidComponent implements OnInit {
   @Output() submitMakeBidEvent = new EventEmitter();
   
   defaultBidForm = {
-    bid: '',
-    maxBid: ''
+    bid: [null, [Validators.required, (control: AbstractControl) => Validators.min(this.min)(control)]],
+    maxBid: [null, [Validators.required,(control: AbstractControl) => Validators.min(this.min)(control)]]
   }
 
   bidForm = this.formBuilder.group(this.defaultBidForm);
 
   constructor(private formBuilder: FormBuilder) { }
 
-  ngOnInit(): void {}
-  
-  onMaxBidChange() {
-    let max = this.bidForm.controls['maxBid'];
-    let bid = this.bidForm.controls['bid']; 
-    if (bid.value < this.min) bid.setValue(this.min);
-    if (bid.value > max?.value) {
-      max.setValue(bid.value);
-    }
+  ngOnInit(): void {
+    const maxBid = this.bidForm.controls['maxBid'];
+    const bid = this.bidForm.get('bid');
+    bid?.valueChanges.subscribe(value => {
+      maxBid.setValidators([Validators.required, Validators.min(value)])
+      maxBid.updateValueAndValidity();
+    })
   }
 
   onSubmitMakeBid() {
