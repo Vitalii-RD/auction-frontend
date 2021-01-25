@@ -40,7 +40,7 @@ export class AuctionsPageComponent implements OnInit {
   }
 
   createAuction(formData:any):void {
-    this.auctionService.createAuction(formData, 2)
+    this.auctionService.createAuction(formData)
     .subscribe(
       (data:Auction) => this.auctions.push(data),
       (e:HttpErrorResponse) => {
@@ -70,7 +70,7 @@ export class AuctionsPageComponent implements OnInit {
 
 
   makeBid(data:any):void {
-    this.auctionService.makeBid(this.selectedAuction.id, 4, data)
+    this.auctionService.makeBid(this.selectedAuction.id, data)
     .subscribe(
       (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
       (e:HttpErrorResponse) => {
@@ -96,7 +96,7 @@ export class AuctionsPageComponent implements OnInit {
   }
 
   closeAuction() {
-    this.auctionService.closeAuction(this.selectedAuction.id, 1)
+    this.auctionService.closeAuction(this.selectedAuction.id)
     .subscribe(
       (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
       (e:HttpErrorResponse) => {
