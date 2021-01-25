@@ -1,5 +1,4 @@
-<section *ngIf="!error; else elseBlock">
-
+<section >
   <button class="add-btn" (click)="openModal('createAuction')">
     <i class="fa fa-plus fa-lg"></i>
   </button>
@@ -23,13 +22,11 @@
 
     <app-auction-info *ngSwitchCase="'showInfo'" [auction]="selectedAuction" (closeModalEvent)="closeModal()">
     </app-auction-info>
+
+    <app-response *ngSwitchCase="'response'" [error]="error" [response]="response" (closeModalEvent)="closeModal()">
+
+    </app-response>
   </section>
 
 </section>
-
-<ng-template #elseBlock>
-  <p class="no-list-message" #elseBlock>
-      {{error}}
-  </p>
-</ng-template>
 

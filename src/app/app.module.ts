@@ -10,6 +10,7 @@ import { AuctionCardComponent } from './auctions-page/auction-card/auction-card.
 import { CreateAuctionComponent } from './auctions-page/modals/create-auction/create-auction.component';
 import { MakeBidComponent } from './auctions-page/modals/make-bid/make-bid.component';
 import { AuctionInfoComponent } from './auctions-page/modals/auction-info/auction-info.component';
+import { ResponseComponent } from './auctions-page/modals/response/response.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AuctionInfoComponent } from './auctions-page/modals/auction-info/auctio
     AuctionCardComponent,
     CreateAuctionComponent,
     MakeBidComponent,
-    AuctionInfoComponent
+    AuctionInfoComponent,
+    ResponseComponent
   ],
   imports: [
     BrowserModule,
