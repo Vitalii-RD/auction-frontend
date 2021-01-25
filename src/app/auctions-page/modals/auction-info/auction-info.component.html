@@ -5,13 +5,13 @@
   </div>
   <div>
     <p>Title: {{auction.item.title}}</p>
-    <p class="status">Status: {{auction.done ? "closed" : "open"}}</p>
+    <p>Status: <span class="status" [class.status_done]="auction.done">{{auction.done ? "closed" : "open"}}</span></p>
     
     <div class="bids">
       <p class="owner">Owner: {{auction.item.owner.name}}</p>
       <p>Initial bid: <span>{{auction.initialBid | currency}}</span></p>
       
-      <div *ngIf="auction.history.length > 0; else noHistory">
+      <div *ngIf="auction.history.length > 0; else noHistory" class="bids__history">
         <p>
           {{auction.done ? "Winner bid:" : "Current bid:"}} 
           <span>{{auction.history[auction.history.length-1].bid | currency}}</span> 
