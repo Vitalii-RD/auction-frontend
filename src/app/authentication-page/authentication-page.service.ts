@@ -6,7 +6,15 @@ import { Observable } from 'rxjs';
 import { catchError, map, retry, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
-import Auction from 'src/types/Auction';
+
+class LoginDTORequest {
+  email:String;
+  password:String;
+  constructor(email:String, password:String) {
+    this.email = email;
+    this.password = password;
+  }
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -20,9 +28,9 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {}
 
-  login():Observable<{}> {
+  login(form:any):Observable<{}> {
+    let data = new LoginDTORequest(form.name, form.password);
     const url = `${this.authenticationUrl}/login`; 
-    return this.http.post(url, {}, this.httpOptions);
+    return this.http.post(url, data, this.httpOptions);
   }
-
 }
