@@ -1,5 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthenticationService } from './authentication-page.service';
 
@@ -9,10 +11,11 @@ import { AuthenticationService } from './authentication-page.service';
   styleUrls: ['./authentication-page.component.scss']
 })
 export class AuthenticationPageComponent implements OnInit {
+  error:string = "";
 
   defaultLogin = {
-    name: '',
-    password: ''
+    name: ['', Validators.required],
+    password: ['', Validators.required]
   }
 
   loginForm = this.formBuilder.group(this.defaultLogin);
@@ -20,16 +23,20 @@ export class AuthenticationPageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-
   }
 
   login():void {
-    this.authenticationService.login().subscribe(() => {
-      console.log(this.cookieService.getAll());
-    });
+    this.authenticationService.login(this.loginForm.value).subscribe(
+      () => this.router.navigate(['/auctions']),
+      (e:HttpErrorResponse) => {
+        this.loginForm.reset();
+        this.error = "Something went wrong. Probably user does not exist"
+      }
+    );
   }
 }

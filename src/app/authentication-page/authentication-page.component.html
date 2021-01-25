@@ -1,8 +1,10 @@
-<p>Login</p>
+<h2 class="title">Login</h2>
 
 
 <form class="form__info" [formGroup]="loginForm" (ngSubmit)="login()">
   <input type="text" name="name" autocomplete="username"  formControlName="name" placeholder="Your name" class="form__info-title">
   <input type="password" name="password" autocomplete="current-password" formControlName="password" placeholder="Your password" class="form__info-bid">
-  <button class="form__send" type="submit">Login</button>
+  <p class="error" *ngIf="error">{{error}}</p>
+  <button class="form__send" type="submit" [disabled]="loginForm.invalid">Login</button>
 </form>
+
