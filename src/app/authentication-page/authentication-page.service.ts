@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { catchError, map, retry, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
+import User from 'src/types/User';
 
 class LoginDTORequest {
   email:String;
@@ -28,9 +29,9 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {}
 
-  login(form:any):Observable<{}> {
+  login(form:any):Observable<User> {
     let data = new LoginDTORequest(form.name, form.password);
     const url = `${this.authenticationUrl}/login`; 
-    return this.http.post(url, data, this.httpOptions);
+    return this.http.post<User>(url, data, this.httpOptions);
   }
 }
