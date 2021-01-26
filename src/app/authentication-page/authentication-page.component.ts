@@ -30,6 +30,18 @@ export class AuthenticationPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log();
+    if (this.router.url.match('logout')?.length) {
+      this.logout();
+    }
+  }
+
+  logout():void {
+    this.authenticationService.logout()
+    .subscribe(() => {
+      this.router.navigate(['/login']);
+      this.userService.emitUser(new User(-1, "", ""));
+    });
   }
 
   login():void {
