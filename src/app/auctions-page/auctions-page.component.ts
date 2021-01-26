@@ -1,7 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import Auction from 'src/types/Auction';
+import User from 'src/types/User';
+import { UserService } from '../app.service';
 import { AuctionService } from './auction-page.service';
 
 @Component({
@@ -9,19 +12,29 @@ import { AuctionService } from './auction-page.service';
   templateUrl: './auctions-page.component.html',
   styleUrls: ['./auctions-page.component.scss']
 })
-export class AuctionsPageComponent implements OnInit {
+export class AuctionsPageComponent implements OnInit, OnDestroy {
   auctions: Auction[];
   isModal: boolean = false;
   response: string = '';
   error: string = '';
   modalType!:string;
   selectedAuction!:Auction;
-  
-  constructor(private auctionService: AuctionService) {
+  currentUser:User;
+  subscription: Subscription;
+
+  constructor(private auctionService: AuctionService, private userService: UserService) {
     this.auctions = [];
     this.modalType = 'makeBid';
+    this.currentUser = this.userService.getValue();  
+    this.subscription = this.userService.userObservable.subscribe((user:User) => {
+      this.currentUser = user;
+    })
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+  
   ngOnInit(): void {
     this.getAuctions();
   }
@@ -43,7 +56,7 @@ export class AuctionsPageComponent implements OnInit {
 
   createAuction(formData:any):void {
     this.openModal('response');
-    this.auctionService.createAuction(formData, 2)
+    this.auctionService.createAuction(formData)
     .subscribe(
       (data:Auction) => {
         this.auctions.push(data);
@@ -77,7 +90,7 @@ export class AuctionsPageComponent implements OnInit {
 
   makeBid(data:any):void {
     this.openModal('response');
-    this.auctionService.makeBid(this.selectedAuction.id, 4, data)
+    this.auctionService.makeBid(this.selectedAuction.id, data)
     .subscribe(
       (data:Auction) => {
         this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e)
@@ -108,7 +121,7 @@ export class AuctionsPageComponent implements OnInit {
 
   closeAuction() {
     this.openModal('response');
-    this.auctionService.closeAuction(this.selectedAuction.id, 1)
+    this.auctionService.closeAuction(this.selectedAuction.id)
     .subscribe(
       (data:Auction) => {
         this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e);
