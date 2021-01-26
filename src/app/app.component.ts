@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import User from 'src/types/User';
+import { UserService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'auction';
+  currentUser:User;
+
+  constructor(private userService: UserService) {
+    this.currentUser =this.userService.getValue();  
+    this.userService.userObservable.subscribe((user:User) => {
+      this.currentUser = user;
+    })
+  }
 }

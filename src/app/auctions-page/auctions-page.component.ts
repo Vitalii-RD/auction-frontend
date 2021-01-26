@@ -1,7 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import Auction from 'src/types/Auction';
+import User from 'src/types/User';
+import { UserService } from '../app.service';
 import { AuctionService } from './auction-page.service';
 
 @Component({
@@ -9,18 +12,28 @@ import { AuctionService } from './auction-page.service';
   templateUrl: './auctions-page.component.html',
   styleUrls: ['./auctions-page.component.scss']
 })
-export class AuctionsPageComponent implements OnInit {
+export class AuctionsPageComponent implements OnInit, OnDestroy {
   auctions: Auction[];
   isModal: boolean = false;
   error: string = '';
   modalType!:string;
   selectedAuction!:Auction;
-  
-  constructor(private auctionService: AuctionService) {
+  currentUser:User;
+  subscription: Subscription;
+
+  constructor(private auctionService: AuctionService, private userService: UserService) {
     this.auctions = [];
     this.modalType = 'makeBid';
+    this.currentUser = this.userService.getValue();  
+    this.subscription = this.userService.userObservable.subscribe((user:User) => {
+      this.currentUser = user;
+    })
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+  
   ngOnInit(): void {
     this.getAuctions();
   }
