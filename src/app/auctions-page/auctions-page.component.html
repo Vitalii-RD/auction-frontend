@@ -4,7 +4,7 @@
   </button>
   
   <div class="card-container">
-    <app-auction-card *ngFor="let auction of auctions" [auction]="auction" 
+    <app-auction-card *ngFor="let auction of auctions" [auction]="auction" [user]="currentUser" 
     (closeAuction)="onCloseAuction($event)"
     (makeBidClick)="onMakeBidClick($event)"
     (showInfo)="onShowInfo($event)">
