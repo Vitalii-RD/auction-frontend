@@ -1,0 +1,38 @@
+@import '../assets/common';
+
+nav {
+  margin: 0 auto;
+  background-color: $dark-blue;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+}
+
+ul {
+  width: 90%;
+  margin: 0 auto;
+  list-style-type: none;
+  display: flex;
+}
+
+li {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+a {
+  color: $grey;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 1.1em;
+  text-decoration: none;
+  transition: 0.3s;
+
+  &:hover {
+    color: $dark;
+  }
+}
+
+.router-link-active {
+  color: $red;
+}
