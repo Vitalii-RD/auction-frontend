@@ -7,6 +7,7 @@ import { AuthenticationPageComponent } from './authentication-page/authenticatio
 const routes: Routes = [
   { path: 'auctions', component: AuctionsPageComponent },
   { path: 'login', component: AuthenticationPageComponent},
+  { path: 'logout', component: AuthenticationPageComponent},
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

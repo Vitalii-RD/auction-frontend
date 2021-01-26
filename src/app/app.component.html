@@ -1,9 +1,9 @@
 <nav>
   <ul>
     <li><a [routerLink]="['/auctions']" routerLinkActive="router-link-active">auctions</a></li>
-    <li *ngIf="currentUser.id !== -1; else logout"><a [routerLink]="['/login']" routerLinkActive="router-link-active">login</a></li>
+    <li *ngIf="currentUser.id < 0; else logout"><a [routerLink]="['/login']" routerLinkActive="router-link-active">login</a></li>
     <ng-template #logout>
-      <li><a [routerLink]="['/login']" routerLinkActive="router-link-active">logout</a></li>
+      <li><a [routerLink]="['/logout']" routerLinkActive="router-link-active">logout</a></li>
     </ng-template>
   </ul>
 </nav>
