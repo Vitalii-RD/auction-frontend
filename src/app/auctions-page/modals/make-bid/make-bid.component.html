@@ -5,9 +5,21 @@
   </div>
 
   <form class="form__info" [formGroup]="bidForm" (ngSubmit)="onSubmitMakeBid()">
-    <input type="number" formControlName="bid" placeholder="Bid" class="form__info-bid" (change)="onMaxBidChange()">
-    <input type="number" formControlName="maxBid" placeholder="Max bid" class="form__info-bid" (change)="onMaxBidChange()">
-    <button class="form__send" type="submit">add</button>
+    <input type="number" formControlName="bid" [min]="min" placeholder="Bid" class="form__info-bid" required>
+    
+    <p *ngIf="bidForm.controls['bid'].invalid && bidForm.controls['bid'].touched" 
+      class="error-message">
+      Bid should be bigger then {{min}}
+    </p>
+
+    <input type="number" formControlName="maxBid" [min]="min" placeholder="Max bid" class="form__info-bid" required>
+
+    <p *ngIf="bidForm.controls['maxBid'].invalid && (bidForm.controls['maxBid'].touched || bidForm.controls['maxBid'].dirty)" 
+      class="error-message">
+      Max bid should be bigger then bid
+    </p>
+
+    <button class="form__send" type="submit" [disabled]="!bidForm.valid">add</button>
   </form>
 
 </div>

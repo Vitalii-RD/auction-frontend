@@ -2,6 +2,10 @@
 
 .bids {
   margin: 10px 0;
+
+  &__history {
+    margin-top: 10px;
+  }
 }
 
 .history {
@@ -10,6 +14,12 @@
   &__title {
     text-align: center;
     margin: 10px 0;
+  }
+}
+.status {
+  color: $blue;
+  &_done {
+    color: $red;
   }
 }
 

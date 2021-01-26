@@ -15,6 +15,7 @@ import { AuctionService } from './auction-page.service';
 export class AuctionsPageComponent implements OnInit, OnDestroy {
   auctions: Auction[];
   isModal: boolean = false;
+  response: string = '';
   error: string = '';
   modalType!:string;
   selectedAuction!:Auction;
@@ -42,22 +43,27 @@ export class AuctionsPageComponent implements OnInit, OnDestroy {
     this.auctionService.getAuctions()
     .subscribe(
       (data:Auction[]) => {
-        this.auctions = data
+        this.auctions = data;
         console.log(data);
       },
       (e:HttpErrorResponse) => {
+        this.openModal('response');
         this.auctions = [];
-        this.error = "Oops, something went wrong. Can not load the tasks.";
+        this.error = "Oops, something went wrong. Can not load auctions.";
       } 
     );
   }
 
   createAuction(formData:any):void {
+    this.openModal('response');
     this.auctionService.createAuction(formData)
     .subscribe(
-      (data:Auction) => this.auctions.push(data),
+      (data:Auction) => {
+        this.auctions.push(data);
+        this.response = 'Successfully added'
+      },
       (e:HttpErrorResponse) => {
-        console.log(e);
+        this.error = 'Could not add. Try again'
       });
   }
 
@@ -72,22 +78,27 @@ export class AuctionsPageComponent implements OnInit, OnDestroy {
   }
 
   onSubmitCreateAuction(data:any):void {
-    this.createAuction(data);
     this.closeModal();
+    this.createAuction(data);
   }
 
   onSubmitMakeBid(data:any):void {
-    this.makeBid(data);
     this.closeModal();
+    this.makeBid(data);
   }
 
 
   makeBid(data:any):void {
+    this.openModal('response');
     this.auctionService.makeBid(this.selectedAuction.id, data)
     .subscribe(
-      (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
+      (data:Auction) => {
+        this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e)
+        this.response = 'You have made a bid';
+      }, 
       (e:HttpErrorResponse) => {
         console.log(e);
+        this.error = 'Something went wrong and server could not take your bid'
         this.getAuctionById(this.selectedAuction.id);
       }
     );
@@ -109,11 +120,16 @@ export class AuctionsPageComponent implements OnInit, OnDestroy {
   }
 
   closeAuction() {
+    this.openModal('response');
     this.auctionService.closeAuction(this.selectedAuction.id)
     .subscribe(
-      (data:Auction) => this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e),
+      (data:Auction) => {
+        this.auctions = this.auctions.map((e:Auction) => e.id == data.id ? data : e);
+        this.response = 'The auction is closed';
+      },
       (e:HttpErrorResponse) => {
         console.log(e);
+        this.error = 'The server could not close the auction';
       }
     ) 
   }
@@ -125,6 +141,8 @@ export class AuctionsPageComponent implements OnInit, OnDestroy {
   }
 
   closeModal():void {
+    this.response = '';
+    this.error = '';
     this.isModal = false;
   }
 

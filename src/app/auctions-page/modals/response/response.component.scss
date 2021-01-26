@@ -1,0 +1,39 @@
+@import '../../../../assets/common';
+
+.response {
+  display: flex;
+  align-items: center;
+
+  i {
+    margin-right: 10px;
+    font-size: 1.5em;
+  }
+
+  &_success{
+    i {
+      color: $blue;
+    }
+  }
+
+  &_error {
+   i {
+     color: $red;
+   } 
+  }
+}
+
+.modal-content{
+  &__header {
+    margin-bottom: 10px;
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+
+  i {
+    font-size: 3em;
+    color: $dark-blue;
+  }
+}

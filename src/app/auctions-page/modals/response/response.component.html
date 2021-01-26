@@ -1,0 +1,20 @@
+<div class="modal-content">
+
+  <div class="modal-content__header">
+    <span class="modal-content__title">Result</span>
+    <i class="fa fa-times fa-lg modal-content__close" (click)="closeModalEvent.emit()"></i>
+  </div>
+
+  <div *ngIf="response || error; else loading" class="response" 
+    [class.response_error]="error" [class.response_success]="!error">
+    <i [className]="error ? 'fa fa-exclamation' : 'fa fa-check'"></i> 
+    <p>{{response || error}}</p>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading">
+      <i class="fa fa-refresh fa-spin"></i>
+    </div>
+  </ng-template>
+  
+</div>
