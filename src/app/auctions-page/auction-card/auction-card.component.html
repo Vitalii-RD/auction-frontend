@@ -20,7 +20,7 @@
 
   <div class="card-functions">
     
-    <button class="bid" (click)="makeBidClick.emit(this.auction)" [disabled]="auction.done">
+    <button class="bid" (click)="makeBidClick.emit(this.auction)" [disabled]="auction.done" *ngIf="user.id != auction.item.owner.id">
       <i class="fa fa-gavel"></i>
     </button>
 
@@ -29,7 +29,7 @@
       <i class="fa fa-info"></i>
     </button>
 
-    <button class="complete" (click)="closeAuction.emit(this.auction)" [disabled]="auction.done">
+    <button class="complete" (click)="closeAuction.emit(this.auction)" [disabled]="auction.done" *ngIf="user.id === auction.item.owner.id">
       <i class="fa fa-check"></i>
     </button>
     
