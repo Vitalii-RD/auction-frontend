@@ -34,4 +34,9 @@ export class AuthenticationService {
     const url = `${this.authenticationUrl}/login`; 
     return this.http.post<User>(url, data, this.httpOptions);
   }
+
+  logout():Observable<{}> {
+    const url = `${this.authenticationUrl}/logout`;
+    return this.http.post(url, {}, this.httpOptions);
+  }
 }
