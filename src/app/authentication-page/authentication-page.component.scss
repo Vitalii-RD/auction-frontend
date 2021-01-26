@@ -20,6 +20,8 @@
 
 input {
   max-width: 500px;
+  min-width: 250px;
+  margin-bottom: 20px;
 }
 
 .form__send:disabled {
